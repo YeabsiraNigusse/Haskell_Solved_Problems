@@ -30,3 +30,7 @@ sumDigits  (x:xs)
 
 validate :: Integer -> Bool
 validate x = x `mod` 10 == 0
+
+-- validate (sumDigits (doubleEveryOther (toDigits 4012888888881881)))
+-- validate (sumDigits (doubleEveryOther (toDigits 4012888888881882)))
+-- use the above code to test the functions,,, the anwer shoild be True and False Respectively
