@@ -16,7 +16,7 @@ multiplyBy3 = (*3)
 -- Define a function that calculates the area of a circle.
 
 area :: Floating a => a -> a
-area r = pi * r *r
+area r = pi * r^2
 -- Question 4
 -- Define a function that calculates the volume of a cylinder by composing the previous function together with the height of the cylinder. 
 
