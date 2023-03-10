@@ -1,3 +1,3 @@
 # Haskell_Solved_Problems
 
-## A repostory that contain different problems, solved by Haskell Programming Language
+## This is a haskell repo that contain solved problems by using Haskell programming language from haskell input output tutorial on Youtube
