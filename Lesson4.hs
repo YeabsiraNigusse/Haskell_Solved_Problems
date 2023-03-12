@@ -14,16 +14,25 @@ nested = [([1,2],[3,4]), ([5,6],[7,8])]
 -- Question 3
 -- Create a function that takes a 3-element tuple (all of type Integer) and adds them together
 
+addTuple :: Num a => (a, a, a) -> a
+addTuple (x, y, z) = x+y+z
+
 
 -- Question 4
 -- Implement a function that returns True if a list is empty and False otherwise.
 
+isEmpty :: [a] -> Bool
+isEmpty = null 
 
 -- Question 5
 -- Write the implementation of the tail function using pattern matching. But, instead of failing if
 -- the list is empty, return an empty list.
-
+tail' :: (Eq a) => [a] -> [a]
+tail' [] = []
+tail' (x:xs) = xs
+       
 
 -- Question 6
 -- write a case expression wrapped in a function that takes an Int and adds one if it's even. Otherwise does nothing. 
 -- (Use the `even` function to check if the number is even.)
+
