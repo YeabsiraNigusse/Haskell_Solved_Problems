@@ -5,11 +5,29 @@
 nested :: [([Int], [Int])]
 nested = [([1,2],[3,4]), ([5,6],[7,8])]
 
+three :: [([Int], [Int])] -> Int
+three [(_,[_,d]), _] = d
+three _ = 0
+
+
 -- Question 2
 -- Write a function that takes a list of elements of any type and, if the list has 3 or more elements, it
 -- removes them. Else, it does nothing. Do it two times, one with multiple function definitions and one with
 -- case expressions.
- 
+
+elem :: [a] -> [a]
+elem n = if length n > 3 then take 3 n else n
+
+remove3 :: [a] -> [a]
+remove3 (_:_:_:xs) = xs
+remove3 x          = x 
+
+remove3' :: [a] -> [a]
+remove3' list = case list of
+    (_:_:_:xs) -> xs
+    x          -> x
+        
+    
 
 -- Question 3
 -- Create a function that takes a 3-element tuple (all of type Integer) and adds them together
@@ -36,3 +54,6 @@ tail' (x:xs) = xs
 -- write a case expression wrapped in a function that takes an Int and adds one if it's even. Otherwise does nothing. 
 -- (Use the `even` function to check if the number is even.)
 
+addOne a = case even a of
+            True -> a + 1
+            False -> a
