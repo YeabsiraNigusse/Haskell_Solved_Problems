@@ -5,11 +5,15 @@
 -- >>> repeat 17
 --[17,17,17,17,17,17,17,17,17...
 
-
+repeat' :: t -> [t]
+repeat' x = [x] ++ repeat' x
 -- Question 2
 -- Using the `repeat'` function and the `take` function we defined in the lesson (comes with Haskell),
 -- create a function called `replicate'` that takes a number `n` and a value `x` and creates a list
 -- of length `n` with `x` as the value of every element. (`n` has to be Integer.)
+
+replicate' :: Int -> a -> [a]
+replicate' n x = take n (repeat' x)
 --
 -- >>> replicate 0 True
 -- []
@@ -21,6 +25,9 @@
 
 -- Question 3
 -- Write a function called `concat'` that concatenates a list of lists.
+concat' :: [[a]] -> [a]
+concat' [] = []
+concat' (x:xs) = x ++ concat' xs
 --
 -- >>> concat' [[1,2],[3],[4,5,6]]
 -- [1,2,3,4,5,6]
@@ -32,6 +39,11 @@
 --
 -- >>> zip' [1, 2] ['a', 'b']
 -- [(1,'a'),(2,'b')]
+
+zip' :: [a] -> [b] -> [(a, b)]
+zip' [] _ = []
+zip' _ [] = []
+zip' (x:xs) (y:ys) = (x, y) : zip' xs ys
 --
 -- If one input list is shorter than the other, excess elements of the longer
 -- list are discarded, even if one of the lists is infinite:
@@ -59,6 +71,10 @@
 --
 -- >>> zipWith (+) [1, 2, 3] [4, 5, 6]
 -- [5,7,9]
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' f _ [] = []
+zipWith' f [] _ = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith f xs ys
 
 
 -- Question 6
@@ -72,12 +88,17 @@
 -- >>> takeWhile (< 0) [1,2,3]
 -- []
 
+takeWhile' :: (a -> Bool) -> [a] -> [a]
+takeWhile' f [] = []
+takeWhile' f (x:xs) = if f x then x : takeWhile' f xs else []
 
 -- Question 7 (More difficult)
 -- Write a function that takes in an integer n, calculates the factorial n! and
 -- returns a string in the form of 1*2* ... *n = n! where n! is the actual result.
 
-
+factorial :: Int -> Int
+factorial 1 = 1
+factorial n = n * factorial (n-1)
 -- Question 8
 -- Below you have defined some beer prices in bevogBeerPrices and your order list in
 -- orderList + the deliveryCost. Write a function that takes in an order and calculates
@@ -93,10 +114,14 @@ bevogBeerPrices =
 
 orderList :: [(String, Double)]
 orderList =
-  [ ("Tak", 5),
-    ("Kramah", 4),
-    ("Ond", 7)
-  ]
+  [("Tak", 5), ("Kramah", 4), ("Ond", 7)]
 
 deliveryCost :: Double
 deliveryCost = 8.50
+
+beerCosts :: [(String, Double)] -> Double
+beerCosts =
+  foldr (+) deliveryCost
+    . zipWith (*) (map snd bevogBeerPrices)
+    . map snd
+    . filter (\name -> fst name `elem` map fst bevogBeerPrices)
